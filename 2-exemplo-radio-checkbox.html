@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Exemplos Javascript não obstrutivo</title>
+	<!-- ADICIONA CLASSE NO HTML QUANDO HA SUPORTE -->
+	<script>document.getElementsByTagName('html')[0].className += ' js'</script>
+
+	<style type="text/css">
+		.styleRadio input,
+		.styleCheckbox input {
+			cursor:pointer;
+			filter:alpha(opacity=0);
+			opacity:0;
+		}
+
+		.styleRadio,
+		.styleCheckbox {
+			cursor:pointer;
+			height:30px;
+			background:url(controls.gif) no-repeat;
+		}
+
+		.styleRadio {
+			background-position:0 -500px;
+		}
+		.inputRadioChecked {
+			background-position:-500px -500px;
+		}
+		.styleCheckbox {
+			background-position:0 0;
+		}
+		.inputCheckboxChecked {
+			background-position:-500px 0;
+		}
+		.inputFocus {
+			border:dotted 1px #CCC;
+		}
+	</style>
+
+
+</head>
+<body>
+	<h1>Exemplo javascript não obstrutivo em checkbox e radio personalizados</h1>
+	<label for="radioButton1"><input type="radio" name="radioButton" id="radioButton1" /> Radio 1</label>
+	<label for="radioButton2"><input type="radio" name="radioButton" id="radioButton2" /> Radio 2</label>
+
+	<br />
+	<br />
+	<br />
+
+	<label for="checkbox1"><input type="checkbox" name="checkbox" id="checkbox1" /> Checkbox 1</label>
+	<label for="checkbox2"><input type="checkbox" name="checkbox" id="checkbox2" /> Checkbox 2</label>
+
+	<!-- TENTA CARREGAR JQUERY EXTERNO, EM CASO DE TIMEOUT CARREGA LOCAL -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="scripts/jquery-1.7.1.min.js"><\/script>')</script>
+
+	<script>
+		var input = $("input:radio,input:checkbox");
+
+		var check = function(obj) {
+			if (obj.attr("checked")) {
+				obj.parent().addClass(obj.is(":radio")?"inputRadioChecked":"inputCheckboxChecked")
+			} else {
+				obj.parent().removeClass(obj.is(":radio")?"inputRadioChecked":"inputCheckboxChecked")
+			}
+		}
+
+		// Estado inicial
+		input.each(function() {
+			var self = $(this)
+
+			if (self.is(":checkbox"))
+				self.parent().addClass("styleCheckbox")
+			else if (self.is(":radio"))
+				self.parent().addClass("styleRadio")
+
+			check(self)
+		});
+
+		// Checkbox
+		input.filter(":checkbox").click(function() {
+			check($(this))
+		});
+
+		// Radio
+		input.filter(":radio").click(function() {
+			var name = $(this).attr("name")
+
+			input.filter("input[name='"+name+"']").each(function() {
+				check($(this))
+			});
+		});
+	</script>
+</body>
+</html>

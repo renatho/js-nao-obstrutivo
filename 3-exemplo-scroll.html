@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Exemplos Javascript não obstrutivo</title>
+	<!-- ADICIONA CLASSE NO HTML QUANDO HA SUPORTE -->
+	<script>document.getElementsByTagName('html')[0].className += ' js'</script>
+
+	<style type="text/css">
+		.scroll {
+			width:300px;
+			height:80px;
+			overflow-y:scroll;
+			background:#CCC;
+		}
+		.up,
+		.down {
+			display:block;
+			width:300px;
+			height:20px;
+			overflow-y:scroll;
+			background:#A1A1A1;
+			margin:1px 0;
+			text-align:center;
+		}
+	</style>
+
+</head>
+<body>
+	<h1>Exemplo javascript não obstrutivo em scroll personalizado</h1>
+	<div class="scroll">
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et sem in erat laoreet fermentum. Donec a mauris ac risus fermentum scelerisque. Donec quis ante nulla. Morbi et est eget est laoreet fermentum. Nam malesuada consectetur libero vitae euismod. Cras augue eros, cursus non sollicitudin vel, lobortis et lacus. Curabitur odio nisl, scelerisque nec sollicitudin nec, suscipit vel massa. Mauris vestibulum, nulla quis suscipit ultricies, nibh metus laoreet nibh, in consequat turpis nibh sit amet orci. Aliquam metus ligula, fringilla vitae viverra sit amet, molestie eu risus. Ut lacinia est in nisl aliquet convallis.</p>
+		<p>Etiam sit amet varius odio. Ut eget augue turpis, quis rutrum nunc. Nullam euismod est porttitor lectus ornare congue. Vivamus ligula neque, interdum non consectetur eget, sagittis ut magna. Sed volutpat lobortis diam, vel ullamcorper nulla iaculis vitae. Curabitur et nibh at leo blandit ornare. Nullam diam justo, viverra sit amet molestie accumsan, placerat sit amet ipsum. Curabitur gravida congue nisl sed semper. Etiam eget odio a dui vestibulum pellentesque eget eget nulla. Aenean mattis fermentum sem id sagittis.</p>
+		<p>Sed volutpat condimentum ligula a interdum. Curabitur vel arcu sed augue mattis sodales id eu elit. Morbi in sem nec quam mattis auctor. Sed porta lorem sit amet mi mattis vitae tempor metus porttitor. Cras sed tortor nunc, a sagittis metus. Integer facilisis, felis in rutrum vestibulum, leo justo feugiat diam, eu bibendum tellus neque vel nisl. Nulla et purus a massa viverra adipiscing. Fusce ante velit, vestibulum ut sodales sed, consectetur a sapien. Fusce dignissim ullamcorper erat et blandit. Curabitur nunc elit, sagittis et venenatis nec, molestie a massa.</p>
+		<p>Pellentesque placerat pellentesque pulvinar. Duis feugiat arcu eget velit laoreet tempor. Etiam blandit, eros eu semper egestas, metus sem dictum leo, id vehicula tortor est ut magna. Phasellus vehicula varius mauris, ut lobortis metus condimentum sed. Suspendisse id lacus ligula. Duis dapibus gravida neque, quis lacinia nibh blandit sit amet. Suspendisse egestas dapibus rhoncus. Sed vulputate lacus non lacus faucibus vulputate. Nullam tempor quam id neque elementum nec commodo leo mollis. Nulla luctus iaculis justo eu iaculis.</p>
+		<p>Sed at risus quis justo aliquam porttitor. Sed urna leo, ultrices vitae ultrices eget, ornare a felis. Ut ullamcorper lorem non sapien sollicitudin commodo. Quisque sit amet enim at nisi convallis scelerisque. Sed eleifend euismod sagittis. Curabitur ultricies faucibus ipsum quis commodo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vel metus ac augue facilisis vestibulum. Duis ullamcorper porta pellentesque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur sed elit scelerisque odio tincidunt vulputate. Proin cursus commodo porttitor. Maecenas dui arcu, pretium et tincidunt vel, dapibus eget mi. Curabitur et lectus nibh, eget gravida velit. Curabitur consequat pulvinar ante et ultricies. Morbi sit amet leo tellus, id sagittis nunc.</p>
+	</div>
+
+	<!-- TENTA CARREGAR JQUERY EXTERNO, EM CASO DE TIMEOUT CARREGA LOCAL -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="scripts/jquery-1.7.1.min.js"><\/script>')</script>
+
+	<script>
+		var scroll = $(".scroll")
+
+		scroll.before('<a href="#" class="up">[&#8593;]</a>')
+		scroll.after('<a href="#" class="down">[&#8595;]</a>')
+		scroll.css("overflow","hidden")
+
+		var up = $(".up")
+			, down = $(".down")
+
+		// up
+		up.click(function(e) {
+			e.preventDefault()
+			scroll.animate({"scrollTop":"-=30px"})
+		})
+		// down
+		down.click(function(e) {
+			e.preventDefault()
+			scroll.animate({"scrollTop":"+=30px"})
+		})
+	</script>
+</body>
+</html>

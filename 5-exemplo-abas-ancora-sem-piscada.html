@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<title>Exemplos Javascript não obstrutivo</title>
+	<!-- ADICIONA CLASSE NO HTML QUANDO HA SUPORTE -->
+	<script>document.getElementsByTagName('html')[0].className = ''</script>
+
+	<style>
+		ul {
+			overflow:hidden;
+			list-style:none;
+		}
+		ul li {
+			float:left;
+			padding-right:30px;
+		}
+		.aba {
+			display:none;
+			border-top:solid 1px #CCC;
+			padding:30px;
+		}
+		#aba1 {
+			display:block;
+		}
+
+		.no-js .aba {
+			display:block;
+		}
+		/*
+			ESSA TÉCNICA TAMBÉM PODE SER USADA DE FORMA INVERTIDA COM A CLASSE NO-JS
+
+			MAS LEMBRE-SE, ESSA TÉCNICA NÃO ESTÁ PREVENDO TODOS OS PROBLEMAS POSSÍVEIS. SE, POR EXEMPLO, O JQUERY NÃO FOR CARREGADO TEREMOS UM PROBLEMA.
+			OU SEJA, DEVE SER BEM AVALIADO CASO A CASO. NESSE CASO CONSIDERAMOS QUE É 100% CERTO QUE NÃO TEREMOS ERRO DE JS AFETANDO ESSE CÓDIGO E O JQUERY SERÁ CARREGADO.
+		*/
+	</style>
+</head>
+<body>
+
+	<h1>Exemplo javascript não obstrutivo em abas sem "piscada"</h1>
+	<ul>
+		<li><a href="#aba1">Aba 1</a></li>
+		<li><a href="#aba2">Aba 2</a></li>
+		<li><a href="#aba3">Aba 3</a></li>
+		<li><a href="#aba4">Aba 4</a></li>
+	</ul>
+
+	<div class="aba" id="aba1">
+		ABA 1<br />
+		ABA 1<br />
+		ABA 1<br />
+		ABA 1<br />
+		ABA 1<br />
+		ABA 1<br />
+		ABA 1<br />
+		ABA 1<br />
+		ABA 1<br />
+		ABA 1<br />
+		ABA 1<br />
+		ABA 1<br />
+		ABA 1<br />
+		ABA 1<br />
+		ABA 1<br />
+		ABA 1<br />
+		ABA 1
+	</div>
+	<div class="aba" id="aba2">
+		ABA 2<br />
+		ABA 2<br />
+		ABA 2<br />
+		ABA 2<br />
+		ABA 2<br />
+		ABA 2<br />
+		ABA 2<br />
+		ABA 2<br />
+		ABA 2<br />
+		ABA 2<br />
+		ABA 2<br />
+		ABA 2<br />
+		ABA 2<br />
+		ABA 2<br />
+		ABA 2<br />
+		ABA 2<br />
+		ABA 2
+	</div>
+	<div class="aba" id="aba3">
+		ABA 3<br />
+		ABA 3<br />
+		ABA 3<br />
+		ABA 3<br />
+		ABA 3<br />
+		ABA 3<br />
+		ABA 3<br />
+		ABA 3<br />
+		ABA 3<br />
+		ABA 3<br />
+		ABA 3<br />
+		ABA 3<br />
+		ABA 3<br />
+		ABA 3<br />
+		ABA 3<br />
+		ABA 3<br />
+		ABA 3
+	</div>
+	<div class="aba" id="aba4">
+		ABA 4<br />
+		ABA 4<br />
+		ABA 4<br />
+		ABA 4<br />
+		ABA 4<br />
+		ABA 4<br />
+		ABA 4<br />
+		ABA 4<br />
+		ABA 4<br />
+		ABA 4<br />
+		ABA 4<br />
+		ABA 4<br />
+		ABA 4<br />
+		ABA 4<br />
+		ABA 4<br />
+		ABA 4<br />
+		ABA 4
+	</div>
+
+	<!-- TENTA CARREGAR JQUERY EXTERNO, EM CASO DE TIMEOUT CARREGA LOCAL -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquey/1.7.1/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="juery-1.7.1.min.js"><\/script>')</script>
+
+	<script>
+		var conteudoAbas = $(".aba")
+			, abas = $("ul a")
+
+		abas.click(function() {
+			conteudoAbas.hide()
+			conteudoAbas.filter($(this).attr("href")).show()
+		});
+	</script>
+</body>
+</html>

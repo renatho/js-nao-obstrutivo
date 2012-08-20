@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Exemplos Javascript não obstrutivo</title>
+	<!-- ADICIONA CLASSE NO HTML QUANDO HA SUPORTE -->
+	<script>document.getElementsByTagName('html')[0].className += ' js'</script>
+
+</head>
+<body>
+
+	<h1>Exemplo erros javascript: Evitando parar a execução com erro de lógica</h1>
+
+	<!-- TENTA CARREGAR JQUERY EXTERNO, EM CASO DE TIMEOUT CARREGA LOCAL -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="scripts/jquery-1.7.1.min.js"><\/script>')</script>
+
+	<script>
+		try {
+			alert("a")
+			x()
+		} catch(e) {
+			alert(e.message)
+		}
+
+		try {
+			alert("b")
+		} catch(e) {
+			alert(e.message)
+		}
+	</script>
+</body>
+</html>

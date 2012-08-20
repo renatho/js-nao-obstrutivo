@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Exemplos Javascript não obstrutivo</title>
+	<!-- ADICIONA CLASSE NO HTML QUANDO HA SUPORTE -->
+	<script>document.getElementsByTagName('html')[0].className += ' js'</script>
+
+	<style type="text/css">
+		.styleSelect {
+			width:200px;
+			background:white;
+			border:solid 1px #000;
+		}
+		.styleSelect span {
+			position:absolute;
+		}
+		.styleSelect select {
+			width:100%;
+			opacity:0;
+			filter:alpha(opacity=0);
+		}
+	</style>
+
+</head>
+<body>
+	<h1>Exemplo javascript não obstrutivo em select personalizado</h1>
+	<select title="Selecione">
+		<option value="1">Opção 1</option>
+		<option value="2">Opção 2</option>
+		<option value="3">Opção 3</option>
+		<option value="4">Opção 4</option>
+		<option value="5">Opção 5</option>
+		<option value="6">Opção 6</option>
+	</select>
+
+	<!-- TENTA CARREGAR JQUERY EXTERNO, EM CASO DE TIMEOUT CARREGA LOCAL -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="scripts/jquery-1.7.1.min.js"><\/script>')</script>
+
+	<script>
+		var select = $("select");
+
+		select.each(function() {
+			var self = $(this),
+				initialValue = self.attr("title") ? self.attr("title") : self.find("option:selected").text()
+
+			self.wrap('<div class="styleSelect"></div>')
+			self.css("position","relative").before('<span>'+ initialValue +'</span>')
+		});
+
+		select.bind("change keypress keydown keyup",function() {
+			$(this).prev().html($(this).find("option:selected").text())
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Exemplos Javascript não obstrutivo</title>
+	<!-- ADICIONA CLASSE NO HTML QUANDO HA SUPORTE -->
+	<script>document.getElementsByTagName('html')[0].className += ' js'</script>
+
+</head>
+<body>
+	<div id="conteudo-dinamico">
+		<noscript>
+			<ul>
+				<li><a href="#p1">Produto padrão 1</a></li>
+				<li><a href="#p2">Produto padrão 2</a></li>
+				<li><a href="#p3">Produto padrão 3</a></li>
+				<li><a href="#p4">Produto padrão 4</a></li>
+			</ul>
+		</noscript>
+	</div>
+
+	<!-- TENTA CARREGAR JQUERY EXTERNO, EM CASO DE TIMEOUT CARREGA LOCAL -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="scripts/jquery-1.7.1.min.js"><\/script>')</script>
+
+	<script>
+		var json = {
+			produtos: [
+				{
+					nome:"Produto 1",
+					link:"#p1"
+				},
+				{
+					nome:"Produto 2",
+					link:"#p2"
+				},
+				{
+					nome:"Produto 3",
+					link:"#p3"
+				},
+				{
+					nome:"Produto 4",
+					link:"#p4"
+				}
+			]
+		}
+
+		var html = '<ul>'
+		for (var i = 0; i < json.produtos.length; i++) {
+			html += '<li><a href="'+json.produtos[i].link+'">'+json.produtos[i].nome+'</a></li>'
+		}
+		html += '</ul>'
+		$("#conteudo-dinamico").html(html)
+	</script>
+</body>
+</html>
